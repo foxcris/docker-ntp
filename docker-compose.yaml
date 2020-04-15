@@ -1,0 +1,24 @@
+version: "3"
+services:
+  ntp:
+    image: foxcris/docker-ntp:dev
+    environment:
+#      - DOCKERNTP_NTPSERVERS=10.10.10.1,10.10.10.2
+#      - DOCKERNTP_NTPPOOLSERVERS=pool1.de.test.de,pool2.de.test.de
+      - DOCKERNTP_ENABLE_STATS=true
+      - DOCKERNTP_CUSTOMFILE=/etc/customntpfile.conf
+      - DOCKERNTP_BROADCASTADDRESS=192.168.178.255
+#    volumes:
+#      - ./customntpfile.conf:/etc/customntpfile.conf:ro
+#      - ./data/var/log/ntpstats:/var/log/ntpstats
+    ports:
+      - 123:123/udp
+    restart: always
+    networks:
+      - backend
+    cap_add:
+      - SYS_TIME
+
+networks:
+  backend:
+    driver: bridge

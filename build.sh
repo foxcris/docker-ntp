@@ -1,0 +1,1 @@
+docker build --pull --force-rm -t foxcris/docker-ntp:dev .
